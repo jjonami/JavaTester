@@ -1,0 +1,58 @@
+Configutation:
+  name: Default
+  status: warn
+
+  Properties:
+    Property:
+      - name: log-path
+        value: "logs"
+      - name: error-path
+        value: "errors"
+
+  Appenders:
+    RollingFile:
+      - name: RollingFile_Appender
+        fileName: ${log-path}/log.log
+        filePattern: "logs/archive/log.log.%d{yyyy-MM-dd}-%i.gz"
+        PatternLayout:
+          pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+        Policies:
+          SizeBasedTriggeringPolicy:
+            size: 100 MB
+          TimeBasedTriggeringPolicy:
+            interval: 1
+            modulate: true
+        DefaultRollOverStrategy:
+          max: 30
+      - name: RollingFile_Error_Appender
+        fileName: ${error-path}/error.log
+        filePattern: "errors/archive/error.log.%d{yyyy-MM-dd}-%i.gz"
+        PatternLayout:
+          pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+        Policies:
+          SizeBasedTriggeringPolicy:
+            size: 100 MB
+          TimeBasedTriggeringPolicy:
+            interval: 1
+            modulate: true
+        DefaultRollOverStrategy:
+          max: 30
+  Loggers:
+    Root:
+      level: INFO
+      AppenderRef:
+        - ref: RollingFile_Appender
+          level: info
+        - ref: RollingFile_Error_Appender
+          level: error
+    Logger:
+      - name: com.zaxxer.hikari.HikariConfig
+        additivity: true
+        level: DEBUG
+        AppenderRef:
+          - ref: RollingFile_Appender
+      - name: com.zaxxer.hikari
+        additivity: true
+        level: TRACE
+        AppenderRef:
+          - ref: RollingFile_Appender
