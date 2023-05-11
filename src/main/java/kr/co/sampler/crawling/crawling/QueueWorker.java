@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class QueueWorker implements Runnable{
 
     @Autowired
-    private CrawlingService service;
+    private CrawlingServiceBySelenium service;
 
     @Override
     public void run() {

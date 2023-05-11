@@ -55,6 +55,9 @@ dependencies {
     // selenium
     implementation 'org.seleniumhq.selenium:selenium-java:4.1.2'
 
+    // jsoup
+    implementation 'org.jsoup:jsoup:1.14.3'
+
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }

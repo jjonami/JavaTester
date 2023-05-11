@@ -8,16 +8,12 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class CrawlingScheduler {
-    private final CrawlingService service;
+    private final CrawlingServiceBySelenium service;
 
-    @Scheduled(initialDelay = 180000, fixedRate = 3000)
-    public void crawlingPerSec() { service.crawling(BrowserType.CHROME); }
-
-//    @Scheduled(cron = "* * * * * *")
-//    public void insertData(){
-//        if(!QueueManager.isEmpty()){
-//            service.insertData(QueueManager.poll());
-//        }
-//    }
+    @Scheduled(initialDelay = 5000, fixedRate = 300000)
+//    @Scheduled(cron = "0 18,48 * * * *")
+    public void jobCrawling(){
+        service.crawling(BrowserType.CHROME);
+    }
 
 }
